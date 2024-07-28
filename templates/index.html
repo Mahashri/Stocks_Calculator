@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Investment Results</h1>
+    <div class="result">
+        <div><strong>Stock Symbol:</strong> {{ stock_symbol }}</div>
+        <div><strong>Start Date:</strong> {{ start_date }}</div>
+        <div><strong>End Date:</strong> {{ end_date }}</div>
+        <div><strong>Start Price:</strong> Rs <span class="amount">{{ start_price }}</span></div>
+        <div><strong>End Price:</strong> Rs <span class="amount">{{ end_price }}</span></div>
+        <div><strong>Total Invested:</strong> Rs <span class="amount">{{ total_invested }}</span></div>
+        <div><strong>Current Value:</strong> Rs <span class="amount">{{ current_value }}</span></div>
+        <div><strong>XIRR:</strong> {{ xirr }}%</div>
+        <div><strong>Overall Return:</strong> {{ overall_return_percentage }}%</div>
+		<div><strong>Overall Return Amount:</strong> {{ overall_return_amount }}</div>
+    </div>
+    <div class="button-container">
+        <a href="/" class="back-button">Back to Form</a>
+    </div>
+</body>
+</html>

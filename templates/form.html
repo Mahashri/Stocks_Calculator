@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock SIP Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Stock SIP Calculator</h1>
+    <form action="/results" method="post">
+        <label for="stock_symbol">Stock Symbol:</label>
+        <input type="text" id="stock_symbol" name="stock_symbol" required>
+        
+        <label for="sip_amount">SIP Amount (Default: 1000):</label>
+        <input type="number" id="sip_amount" name="sip_amount" value="1000">
+        
+        <label for="start_date">Start Date:</label>
+        <input type="date" id="start_date" name="start_date" required>
+        
+        <label for="end_date">End Date:</label>
+        <input type="date" id="end_date" name="end_date" required>
+        
+        <button type="submit">Calculate</button>
+    </form>
+
+    <script>
+        // Set default dates
+        window.onload = function() {
+            var today = new Date();
+            var yearAgo = new Date();
+            yearAgo.setFullYear(today.getFullYear() - 1);
+
+            var formatDate = function(date) {
+                var day = ("0" + date.getDate()).slice(-2);
+                var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                return date.getFullYear() + "-" + month + "-" + day;
+            };
+
+            document.getElementById('start_date').value = formatDate(yearAgo);
+            document.getElementById('end_date').value = formatDate(today);
+        };
+
+        // Autocomplete feature for stock symbol
+        document.getElementById('stock_symbol').addEventListener('input', function() {
+            var input = this.value;
+            fetch('/nse_stocks')
+                .then(response => response.json())
+                .then(data => {
+                    var suggestions = data.filter(stock => stock.symbol.startsWith(input.toUpperCase()));
+                    var autocompleteItems = document.createElement('div');
+                    autocompleteItems.setAttribute('class', 'autocomplete-items');
+                    suggestions.forEach(suggestion => {
+                        var item = document.createElement('div');
+                        item.innerHTML = suggestion.symbol;
+                        item.addEventListener('click', function() {
+                            document.getElementById('stock_symbol').value = suggestion.symbol;
+                            closeAllLists();
+                        });
+                        autocompleteItems.appendChild(item);
+                    });
+                    this.parentNode.appendChild(autocompleteItems);
+                });
+        });
+
+        function closeAllLists() {
+            var items = document.getElementsByClassName('autocomplete-items');
+            for (var i = 0; i < items.length; i++) {
+                items[i].parentNode.removeChild(items[i]);
+            }
+        }
+
+        document.addEventListener('click', function (e) {
+            closeAllLists();
+        });
+    </script>
+
+
+
+
+
+
+
+    
+    <div class="notes">
+        <p><strong>Notes:</strong></p>
+        <ul>
+            <li>Stock symbols are displayed in NSE format (e.g., DIVISLAB for Divi's Laboratories in NSE).</li>
+            <li>You can adjust the SIP amount as desired.</li>
+            <li>If the stock data is unavailable for a specific Start Date or End Date, please select the previous day's date.</li>
+            <li>Data is typically not available for weekends or market holidays, so please select the previous business day in such cases.</li>
+        </ul>
+    </div>
+</body>
+</html>
