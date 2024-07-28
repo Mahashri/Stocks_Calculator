@@ -1,0 +1,15 @@
+# Exported from Render on 2024-07-28T09:55:46Z
+services:
+- type: web
+  name: Stocks_Calculator
+  runtime: python
+  repo: https://github.com/Mahashri/Stocks_Calculator
+  plan: free
+  envVars:
+  - key: Python
+    sync: false
+  region: oregon
+  buildCommand: pip install -r requirements.txt
+  startCommand: gunicorn app:app
+  pullRequestPreviewsEnabled: true
+version: "1"
