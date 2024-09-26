@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Stock SIP Calculator</title>
+</head>
+<body>
+
+    <h1>Stock SIP Calculator</h1>
+
+    <form action="/results" method="post">
+        <div class="autocomplete">
+            <label for="stock_symbol">Stock Symbol:</label>
+            <input id="stock_symbol" type="text" name="stock_symbol" placeholder="Stock Symbol" required>
+        </div>
+        
+        <label for="sip_amount">SIP Amount (Default: 1000):</label>
+        <input type="number" id="sip_amount" name="sip_amount" value="1000">
+        
+        <label for="start_date">Start Date:</label>
+        <input type="date" id="start_date" name="start_date" required>
+        
+        <label for="end_date">End Date:</label>
+        <input type="date" id="end_date" name="end_date" required>
+        
+        <input type="submit" value="Calculate">
+    </form>
+
+    <div class="notes">
+        <p><strong>Notes:</strong></p>
+        <ul>
+            <li>Stock symbols are displayed in NSE format (e.g., DIVISLAB for Divi's Laboratories in NSE).</li>
+            <li>You can adjust the SIP amount as desired.</li>
+            <li>If the stock data is unavailable for a specific Start Date or End Date, please select the previous day's date.</li>
+            <li>Data is typically not available for weekends or market holidays, so please select the previous business day in such cases.</li>
+        </ul>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
