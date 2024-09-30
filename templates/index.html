@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mahashri Stocks Calculator</title>
+    <title>SIP Returns Calculator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    
+
 </head>
 <body>
-    <h1>Mahashri Stocks Returns Calculator</h1>
+    <h1>SIP Returns Calculator</h1>
     <form action="/results" method="post" onsubmit="storeStockSymbol()">
         <div class="autocomplete">
             <label for="stock_symbol">Stock Symbol:</label>
@@ -21,19 +23,13 @@
         <input type="date" id="end_date" name="end_date">
         <button type="submit">Calculate</button>
     </form>
-    <style>
-        .positive {
-            color: green;
-        }
-        .negative {
-            color: red;
-        }
-    </style>
+    
     {% if start_date and end_date %}
     <div class="result">
         <label>Results:</label>
         <form action="/results" method="post">
             <div>Stock Symbol: <span class="value"><b>{{ stock_symbol }}</b></span></div>
+			
             <div>Start Date: <span class="value">{{ start_date }}</span></div>
             <div>End Date: <span class="value">{{ end_date }}</span></div>
             <div>Start Price: <span class="amount">Rs. {{ start_price }}</span></div>
@@ -41,22 +37,20 @@
             <div>Total Invested: <span class="amount">Rs. {{ total_invested }}</span></div>
             <div>Current Value: <span class="amount">Rs. {{ current_value }}</span></div>
             <div>Duration: <span class="duration">{{ duration }}</span></div>
-            <div>
-                <p class="{{ 'positive' if xirr >= 0 else 'negative' }}">XIRR: {{ xirr }}%</p>
-                <p class="{{ 'positive' if overall_return_percentage >= 0 else 'negative' }}">Overall Percentage: {{ overall_return_percentage }}%</p>
-            </div>
+            <div>XIRR: <span class="percentage">{{ xirr }}%</span></div>
+            <div>Overall Return Percentage: <span class="percentage">{{ overall_return_percentage }}%</span></div>
             <div>SIP Returns Profit: <span class="amount">Rs. {{ sip_returns_profit }}</span></div>
             <div>Overall Profit Amount: <span class="amount">Rs. {{ overall_profit_amount }}</span></div>
         </form>
-        <div class="logo">
+		 <div class="logo">
             <img src="{{ logo_url }}" alt="Company Logo">
         </div>
     </div>
-    
+	
     <div class="button-container">
         <a href="/" class="back-button">Back to Form</a>
     </div>
     {% endif %}
-    <script src="static/js/script.js"></script>
+	<script src="static/js/script.js"></script>
 </body>
 </html>
