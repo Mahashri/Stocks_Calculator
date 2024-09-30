@@ -60,7 +60,7 @@ def calculate_sip_returns(stock_symbol, sip_amount, start_date, end_date):
     cash_flow_dates = sip_df.index.tolist()
     cash_flow_dates.append(stock_data.index[-1])
     
-    xirr = npf.irr(cash_flows) * 100  # Annualized return percentage
+    xirr =((currentValue - totalInvested) / totalInvested) * 100;
     
     overall_return_percentage = ((end_price - start_price) / start_price) * 100
     sip_returns_profit = current_value - total_invested
