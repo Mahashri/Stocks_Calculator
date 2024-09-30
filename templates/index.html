@@ -23,7 +23,14 @@
         <input type="date" id="end_date" name="end_date">
         <button type="submit">Calculate</button>
     </form>
-    
+    <style>
+        .positive {
+            color: green;
+        }
+        .negative {
+            color: red;
+        }
+    </style>
     {% if start_date and end_date %}
     <div class="result">
         <label>Results:</label>
@@ -37,8 +44,10 @@
             <div>Total Invested: <span class="amount">Rs. {{ total_invested }}</span></div>
             <div>Current Value: <span class="amount">Rs. {{ current_value }}</span></div>
             <div>Duration: <span class="duration">{{ duration }}</span></div>
-            <div>XIRR: <span class="percentage">{{ xirr }}%</span></div>
-            <div>Overall Return Percentage: <span class="percentage">{{ overall_return_percentage }}%</span></div>
+            <div>
+    		<p class="{{ xirr_color }}">XIRR: {{ xirr }}%</p>
+   		<p class="{{ percentage_color }}">Overall Percentage: {{ percentage_diff }}%</p>
+	    </div>
             <div>SIP Returns Profit: <span class="amount">Rs. {{ sip_returns_profit }}</span></div>
             <div>Overall Profit Amount: <span class="amount">Rs. {{ overall_profit_amount }}</span></div>
         </form>
